@@ -1,25 +1,66 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState} from "react";
+import { createBrowserRouter , Outlet , useLocation } from "react-router-dom";
+import API from './Context/API/api_state'
+import Navbar from "./Components/Navbar";
+import Footer from './Components/Footer'
+import Dashboard from './Components/Dashboard'
+import Error from './Components/Error'
+import Sidebar from './Components/Sidebar'
+import Doctor from './Components/Doctor'
+import Client from './Components/Client'
+import Testimonial from './Components/Testimonials'
+import Login from './Components/Login'
 
 function App() {
+
+  let location = useLocation();
+  const [aside, setaside] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <API>
+        <Navbar setaside={setaside} aside={aside}></Navbar>
+        <Sidebar setaside={setaside} aside={aside}></Sidebar>
+        <div className="mt-[72px] md:mt-[65px] md:ml-[65px] h-[74vh] overflow-x-hidden">
+          <div className="h-16 w-full text-sm font-medium flex justify-between items-center px-8">
+              {`HOME ${location.pathname.toUpperCase().replace("/", "")}`}               
+          </div>
+          <Outlet />
+        </div>
+        <Footer></Footer>
+    </API>
   );
 }
 
-export default App;
+const router = createBrowserRouter([
+
+  {
+    path: "/",
+    element: <App/>,
+    errorElement: <Error/>,
+    children:[
+      {
+        path: "",
+        element: <Dashboard />,
+      },
+      {
+        path: "Doctors",
+        element: <Doctor />,
+      },
+      {
+        path: "Clients",
+        element: <Client />,
+      },
+      {
+        path: "Testimonials",
+        element: <Testimonial />,
+      },
+    ]
+  },
+  {
+    path: '/Login',
+    element: <API><Login/></API>,
+    errorElement: <Error />
+  },
+]);
+
+export default router;
