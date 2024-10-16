@@ -12,6 +12,7 @@ const Sidebar = (props) => {
     { name: "Manage Clients", to: "/Clients",  current: location.pathname === "/Clients" ? true : false, icon: <TeamOutlined />   },
     { name: "Manage Doctors", to: "/Doctors",  current: location.pathname === "/Doctors" ? true : false, icon: <IdcardOutlined />  },
     { name: "Manage Testimonial", to: "/Testimonials",  current: location.pathname === "/Testimonial" ? true : false, icon: <IdcardOutlined />  },
+    { name: "Manage Invoices", to: "/Invoices",  current: location.pathname === "/Invoices" ? true : false, icon: <IdcardOutlined />  },
   ];
   
   function classNames(...classes) {
@@ -55,6 +56,7 @@ const Sidebar = (props) => {
   {navigation.map((item) => (
     <Link
         to={item.to}
+        key={item.name}
         onClick={() => setaside(false)}
         className={classNames(
           item.current ? "text-blue-500 cursor-default" : "hover:bg-gray-50 hover:text-black text-gray-400 bg-transparent",

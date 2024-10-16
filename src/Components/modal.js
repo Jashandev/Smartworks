@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import Doctor from './Froms/Doctor'
 import Client from './Froms/Client'
 import Addoctor from './Froms/Addoctor'
+import SendInvoice from './Froms/SendInvoice'
 
 function Modal_Screen(props) {
 
@@ -31,10 +32,10 @@ function Modal_Screen(props) {
 
     return (
         <>
-            <Button onClick={showModal} className='bg-sky-800 w-20 text-slate-50 md:ml-4 md:mt-0' type="primary">{ !props.Addoctor ? 'Update' : 'ADD'}</Button>
+            <Button onClick={showModal} className='bg-sky-800 w-20 text-slate-50 md:ml-4 md:mt-0' type="primary">{ props.Addoctor ? 'ADD' : props.SendInvoice ? 'Invoice' : 'Update' }</Button>
             <Modal title={title} open={open ? open : visible} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel} footer={null} >
                 {type === "DOCTORS" && !props.Addoctor ? <Doctor handleOk={handleOk} id={props.id} handleCancel={handleCancel} /> : type === "DOCTORS" && <Addoctor handleOk={handleOk} handleCancel={handleCancel} />}
-                {type === "CLIENTS" && <Client handleOk={handleOk} id={props.id} handleCancel={handleCancel} />}
+                {type === "CLIENTS" && !props.SendInvoice ? <Client handleOk={handleOk} id={props.id} handleCancel={handleCancel} /> : type === "CLIENTS" && <SendInvoice id={props.id} email={props.email} handleOk={handleOk} handleCancel={handleCancel} /> }
             </Modal>
         </>
     )

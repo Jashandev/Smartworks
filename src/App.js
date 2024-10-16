@@ -10,6 +10,7 @@ import Doctor from './Components/Doctor'
 import Client from './Components/Client'
 import Testimonial from './Components/Testimonials'
 import Login from './Components/Login'
+import Invoices from './Components/Invoice'
 
 function App() {
 
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "Testimonials",
         element: <Testimonial />,
+      },
+      {
+        path: "Invoices",
+        element: <Invoices />,
       },
     ]
   },
